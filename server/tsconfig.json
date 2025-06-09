@@ -1,0 +1,26 @@
+{
+  // Extend from a global or base TypeScript configuration.
+  // This allows shared settings across multiple projects to be inherited.
+  "extends": "../tsconfig.json",
+
+  "compilerOptions": {
+    /* Modules */
+    // Define the root directory for TypeScript to start searching for source files.
+    // This is typically the directory containing all your TypeScript code.
+    "rootDir": "src", 
+
+    /* Output */
+    // Set the output directory where the compiled JavaScript files will be emitted.
+    // This is where all your transpiled files will go after running the TypeScript compiler.
+    "outDir": "dist", 
+
+    /* Optional Configurations */
+    // Uncomment this option if you want to prevent emitting JavaScript files when 
+    // TypeScript encounters any errors during compilation.
+    // "noEmitOnError": true 
+  },
+
+  // Include the 'src' folder where your source code files are located.
+  // This ensures that the TypeScript compiler knows where to look for source files.
+  "include": ["src"]
+}
