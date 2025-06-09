@@ -1,65 +1,89 @@
-import fs from 'node:fs/promises';
-import { v4 as uuidv4 } from 'uuid';
-import path from 'node:path';
+import fs from 'node:fs/promises'; // File system promises API for reading and writing files
+import { v4 as uuidv4 } from 'uuid'; // UUID library to generate unique identifiers for cities
+import path from 'node:path'; // Path library to manage file paths
 
-const HISTORY_FILE_PATH = path.join(
-  process.cwd(), 'src', 'data', 'searchHistory.json');
+// Path to the search history file (JSON format)
+const HISTORY_FILE_PATH = path.join(process.cwd(), 'src', 'data', 'searchHistory.json');
 
-// TODO: Define a City class with name and id properties
+// Define a City class to represent a city with a name and a unique ID
 class City {
-  name: string;
-  id: string;
+  name: string; // City name (e.g., "New York")
+  id: string; // Unique identifier for the city
 
+  // Constructor to initialize a new City object
   constructor(name: string, id: string) {
     this.name = name;
     this.id = id;
   }
 }
 
-// TODO: Complete the HistoryService class
+// HistoryService handles reading and writing city search history data from the JSON file
 class HistoryService {
-  // TODO: Define a read method that reads from the searchHistory.json file
+  // Private method to read the search history data from the JSON file
   private async read(): Promise<City[]> {
     try {
+      // Read the content of the history file as a string
       const data = await fs.readFile(HISTORY_FILE_PATH, 'utf8');
+      
+      // Parse the JSON string into an array of City objects
       return JSON.parse(data) as City[];
     } catch (error) {
+      // If an error occurs while reading, log the error and return an empty array
       console.error('Error reading history file:', error);
       return [];
     }
   }
-  // TODO: Define a write method that writes the updated cities array to the searchHistory.json file
+
+  // Private method to write updated city data back to the JSON file
   private async write(cities: City[]): Promise<void> {
     try {
+      // Convert the cities array to a JSON string and write it to the file
       await fs.writeFile(HISTORY_FILE_PATH, JSON.stringify(cities, null, 2), 'utf-8');
     } catch (error) {
+      // Log an error message if writing fails
       console.error('Error writing to history file:', error);
     }
   }
-  // TODO: Define a getCities method that reads the cities from the searchHistory.json file and returns them as an array of City objects
+
+  // Public method to get the list of cities from the history file
   async getCities(): Promise<City[]> {
+    // Return the cities by reading the data from the file
     return await this.read();
   }
-  // TODO Define an addCity method that adds a city to the searchHistory.json file
+
+  // Public method to add a new city to the search history
   async addCity(cityName: string): Promise<void> {
+    // Read the existing cities from the history file
     const cities = await this.read();
 
+    // Check if the city already exists (case-insensitive comparison)
     if (cities.some((c) => c.name.toLowerCase() === cityName.toLowerCase())) {
+      // If the city already exists, don't add it again
       return;
     }
+
+    // Create a new city object with a unique ID
     const newCity: City = { name: cityName, id: uuidv4() };
 
+    // Add the new city to the cities array
     cities.push(newCity);
 
+    // Write the updated cities array back to the history file
     await this.write(cities);
   }
-  
-  // * BONUS TODO: Define a removeCity method that removes a city from the searchHistory.json file
+
+  // Public method to remove a city from the search history by its ID
   async removeCity(id: string): Promise<void> {
+    // Read the current list of cities from the file
     let cities = await this.read();
-  cities = cities.filter((city) => city.id !== id);
-  await this.write(cities);
+
+    // Filter out the city with the specified ID
+    cities = cities.filter((city) => city.id !== id);
+
+    // Write the updated cities list back to the file
+    await this.write(cities);
   }
 }
 
+// Export an instance of the HistoryService class
 export default new HistoryService();

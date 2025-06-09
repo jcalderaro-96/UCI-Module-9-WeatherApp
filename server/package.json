@@ -1,24 +1,22 @@
 {
-  "name": "server",
+  "name": "weather-dashboard-server",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "Backend server for the weather dashboard app, providing API routes and weather data from OpenWeather API.",
+  "main": "dist/server.js",
   "type": "module",
   "scripts": {
     "build": "npx tsc",
-    "start": "npm run build && node dist/server.js --ignore client",
-    "dev": "npx nodemon",
+    "start": "npm run build && node dist/server.js",
+    "dev": "npx nodemon --watch src --ext ts,json,js --exec \"npx tsc && node dist/server.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "nodemonConfig": {
-    "watch": [
-      "src"
-    ],
+    "watch": ["src"],
     "ext": "ts,json,js",
     "exec": "npx tsc && node dist/server.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Cordelia and ChatGPT",
+  "license": "MIT",
   "dependencies": {
     "dayjs": "^1.11.10",
     "dotenv": "^16.4.5",
