@@ -98,7 +98,7 @@ This project is licensed under the MIT License. For more details, please see the
 
 ## Credits & Acknowledgments
 
-This application was built upon a codebase originally created by @ThayRibeiro. The core functionality and structure of the app are based on their work. We have refactored and modified the code to ensure compliance and avoid any issues related to code reuse. A huge thank you to ThayRibeiro for the base framework, which made this project possible.
+This application was built upon a codebase originally created by @ThayRibeir0. The core functionality and structure of the app are based on their work. We have refactored and modified the code to ensure compliance and avoid any issues related to code reuse. A huge thank you to ThayRibeir0 for the base framework, which made this project possible, available at: https://github.com/ThayRibeiro0/weather-dashboard-app
 
 A special thanks to ChatGPT (OpenAI) for assisting with the refactoring, code optimizations, and troubleshooting throughout this process. Jonathan and ChatGPT worked closely together to ensure a working, deployable version of this application, streamlining development and overcoming obstacles efficiently.
 
